@@ -1,0 +1,59 @@
+{% extends 'sellerbase.html' %}
+{% block content %}
+<style>
+   
+  
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .card-body {
+        text-align: center;
+    }
+    .container {
+        
+        text-align: center;
+        margin-bottom: 200px;
+       background-color: crimson;
+       border-radius: 15px;
+       margin-top: 20px;
+       margin-left: 5px;
+      margin: 20px auto; /* This will center align the container horizontally */    
+    }
+       
+
+</style>
+
+
+   
+<div class="container ">
+    <h1>Seller Dashboard</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Total Products</h5>
+                    <p>{{ total_products }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Total Orders</h5>
+                    <p>{{ total_orders }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Total Sales</h5>
+                    <p>₹{{ total_sales }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

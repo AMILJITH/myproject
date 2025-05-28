@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}My Orders{% endblock %}
+{% block content %}
+<div class="container my-4">
+    <h2 class="text-center mb-4">My Orders</h2>
+    {% if order_details %}
+        {% for detail in order_details %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <strong>Order ID:</strong> {{ detail.order.id }} |
+                    <strong>Total Price:</strong> ₹{{ detail.order.total_price }} |
+                    <strong>Placed On:</strong> {{ detail.order.created_at|date:"D, d M Y H:i" }}
+                    <a href="{% url 'delete_order' detail.order.id %}"  class="btn btn-danger btn-sm"  onclick="return confirm('Are you sure you want to Cancel this order?'); ">Cancel Order</a>
+                </div>
+                <div class="card-body">
+                    <h5>Items:</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in detail.orderitems.all %}
+                                <tr>
+                                    <td>{{ item.order.id }}</td>
+                                    <td>{{ item.product.name }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>₹{{ item.price }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center">You have no orders yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

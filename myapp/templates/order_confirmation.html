@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Order Confirmation{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h2 class="text-center mb-4">Thank You!</h2>
+    <p class="text-center">Your order has been placed successfully. You will receive a confirmation email soon.</p>
+    <div class="text-center">
+        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

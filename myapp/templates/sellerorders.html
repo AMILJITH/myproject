@@ -1,0 +1,59 @@
+{% extends "sellerbase.html" %}
+
+{% block content %}
+<h2 style="text-align: center; margin-bottom: 20px; color: white;">Orders for Your Products</h2>
+
+{% if orders %}
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <thead>
+            <tr style="background-color: #4b5563; color: white; text-align: left;">
+                <th style="padding: 10px; border: 1px solid #ddd;">Order ID</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Customer</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Address</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Total Price</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Order Items</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order_details in orders %}
+            <tr style="background-color: #f9f9f9; color: #333;">
+                <td style="padding: 10px; border: 1px solid #ddd;">{{ order_details.order.id }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">
+                    {{ order_details.customer.full_name }} 
+                    ({{ order_details.customer.username }})
+                </td>
+                <td style="padding: 10px; border: 1px solid #ddd;">
+                    {{ order_details.address.address }}, 
+                    {{ order_details.address.city }}, 
+                    {{ order_details.address.state }} - 
+                    {{ order_details.address.postal_code }}
+                </td>
+                <td style="padding: 10px; border: 1px solid #ddd;">₹{{ order_details.order.total_price }}</td>
+                <td style="padding: 10px; border: 1px solid #ddd;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background-color: #e5e7eb; color: #333; text-align: left;">
+                                <th style="padding: 5px; border: 1px solid #ddd;">Product</th>
+                                <th style="padding: 5px; border: 1px solid #ddd;">Quantity</th>
+                                <th style="padding: 5px; border: 1px solid #ddd;">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in order_details.items %}
+                            <tr style="background-color: #fff; color: #333;">
+                                <td style="padding: 5px; border: 1px solid #ddd;">{{ item.product.name }}</td>
+                                <td style="padding: 5px; border: 1px solid #ddd;">{{ item.quantity }}</td>
+                                <td style="padding: 5px; border: 1px solid #ddd;">₹{{ item.price }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p style="text-align: center; color: #666;">No orders for your products yet.</p>
+{% endif %}
+{% endblock %}

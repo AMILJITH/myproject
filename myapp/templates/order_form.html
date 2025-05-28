@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Order Form{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h2 class="text-center mb-4">Order Form</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="full_name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="full_name" name="full_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" id="city" name="city" required>
+        </div>
+        <div class="mb-3">
+            <label for="state" class="form-label">State</label>
+            <input type="text" class="form-control" id="state" name="state" required>
+        </div>
+        <div class="mb-3">
+            <label for="postal_code" class="form-label">Postal Code</label>
+            <input type="text" class="form-control" id="postal_code" name="postal_code" required>
+        </div>
+        <h4 class="mt-4">Order Summary</h4>
+        <ul class="list-group mb-4">
+            {% for item in cart_items %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ item.product.name }} (x{{ item.quantity }})
+                <span>₹{{ item.get_total_price }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        <button type="submit" class="btn btn-success w-100">Place Order</button>
+    </form>
+</div>
+{% endblock %}

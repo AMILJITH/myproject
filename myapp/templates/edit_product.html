@@ -1,0 +1,34 @@
+{% extends 'sellerbase.html' %}
+{% block content %}
+<style>
+    .container {
+        background-color: crimson; /* Change this to your desired color */
+        padding: 20px;
+        border-radius: 10px;
+    }
+</style>
+<div class="container mt-4">
+    <h2>Edit Product</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="product_name" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="product_name" name="product_name" value="{{ product.name }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="product_description" class="form-label">Product Description</label>
+            <textarea class="form-control" id="product_description" name="product_description" rows="4" required>{{ product.description }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="product_price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="product_price" name="product_price" value="{{ product.price }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="product_image" class="form-label">Product Image</label><br>
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-thumbnail mb-2" width="150">
+            <input type="file" class="form-control" id="product_image" name="product_image">
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

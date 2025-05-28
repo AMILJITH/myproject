@@ -1,0 +1,72 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+<style>
+    .user-list {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #e73d3d;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+    }
+
+    .user-list h1 {
+        text-align: center;
+        color: #333;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .user-list table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .user-list th,
+    .user-list td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .user-list th {
+        background-color: #f2f2f2;
+        color: #555;
+    }
+
+    .user-list tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+<div class="user-list">
+    <h1>User List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Date Joined</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+                <td>{{ user.date_joined }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No users found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

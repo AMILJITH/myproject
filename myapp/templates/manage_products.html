@@ -1,0 +1,57 @@
+{% extends 'sellerbase.html' %}
+{% block content %}
+<style>
+    .container {
+        background-color:crimson; /* Light grey background color */
+        padding: 20px;
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .table thead {
+        background-color: #343a40; /* Dark grey background for the table header */
+        color: white;
+    }
+</style>
+
+<div class="container mt-4">
+    <h2>Manage Products</h2>
+    {% if products %}
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-thumbnail" width="100">
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td>₹{{ product.price }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>
+                        <a href="{% url 'edit_product' product.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{% url 'delete_product' product.id %}" method="POST" style="display:inline-block;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No products found. <a href="{% url 'add_product' %}">Add a new product</a></p>
+    {% endif %}
+</div>
+{% endblock %}

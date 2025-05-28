@@ -1,0 +1,85 @@
+{% extends 'sellerbase.html' %}
+{% block content %}
+<style>
+    .container {
+        margin-top: 0;
+        background-color: #ff4d4d; /* Red background color */
+        padding: 20px;
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        max-width: 600px; /* Reduced width */
+        margin: 20px auto; /* Centered with margin */
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #343a40; /* Dark grey color */
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #495057; /* Slightly lighter grey on hover */
+    }
+
+    .invalid-feedback {
+        font-size: 0.875em; /* Slightly smaller text for feedback */
+    }
+</style>
+
+<div class="container mt-2">
+    <h2 class="text-center mt-3">Add a New Product</h2>
+    <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="product_name" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="product_name" name="product_name" required>
+            <div class="invalid-feedback">
+                Please enter a product name.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="product_description" class="form-label">Product Description</label>
+            <textarea class="form-control" id="product_description" name="product_description" rows="4" required></textarea>
+            <div class="invalid-feedback">
+                Please enter a product description.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="product_price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="product_price" name="product_price" required>
+            <div class="invalid-feedback">
+                Please enter a product price.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="product_image" class="form-label">Product Image</label>
+            <input type="file" class="form-control" id="product_image" name="product_image" required>
+            <div class="invalid-feedback">
+                Please upload a product image.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Add Product</button>
+    </form>
+</div>
+
+<script>
+    // JavaScript for Bootstrap validation
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+{% endblock %}

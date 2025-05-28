@@ -1,0 +1,96 @@
+{% extends 'adminbase.html' %}
+
+
+{% block content %}
+<style>
+    .container {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #d73d3d;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        color: #fff;
+    }
+
+    .container h2, .container h3 {
+        text-align: center;
+        color: #ffc107;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .table {
+        margin-top: 20px;
+    }
+
+    .table-bordered {
+        background-color: #495057;
+        border: 1px solid #495057;
+    }
+
+    .table-bordered th, .table-bordered td {
+        text-align: center;
+        padding: 12px;
+        border: 1px solid #6c757d;
+    }
+
+    .table-bordered thead th {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+    .table-bordered tbody tr:nth-of-type(odd) {
+        background-color: #6c757d;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.875em;
+        background-color: #6c757d;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .btn:hover {
+        background-color: #5a6268;
+        color: #ffc107;
+    }
+</style>
+
+
+    <div class="container mt-5 text-white">
+        <h2>Order Detail</h2>
+        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <p><strong>Customer:</strong> {{ order.user.username }}</p>
+        <p><strong>Total Price:</strong> ${{ order.total_price }}</p>
+        <p><strong>Order Date:</strong> {{ order.created_at }}</p>
+        <p><strong>Shipping Address:</strong> {{ order.address }}, {{ order.city }}, {{ order.state }}, {{ order.postal_code }}</p>
+
+        <h3>Order Items</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.price }}</td>
+                    <td>${{ order.total_price  }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    </div>
+{% endblock %}
